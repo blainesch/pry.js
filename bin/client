@@ -1,5 +1,7 @@
+#!/usr/bin/env coffee
+
 net = require("net")
-SyncPrompt = require("./sync_prompt")
+SyncPrompt = require("#{__dirname}/../src/pry/sync_prompt")
 deasync = require("deasync")
 commandDone = false
 
