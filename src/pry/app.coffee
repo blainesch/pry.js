@@ -1,4 +1,6 @@
 SyncPrompt = require('./sync_prompt')
+RemotePrompt = require('./sync_prompt')
+Server = require('./server.coffee')
 Output = require('./output/local_output')
 commands = require('./commands')
 
@@ -7,11 +9,21 @@ class App
   _commands: []
 
   constructor: (@scope) ->
+
+  local: ->
     @output = new Output()
-    @prompt = new SyncPrompt({
+    @prompt = new SyncPrompt(
       callback: @find_command
       typeahead: @typeahead
-    })
+    )
+
+  remote: ->
+    @output = new RemoteOutput()
+    server = new Server()
+    @prompt = new RemotePrompt(
+      server: server
+      callback: @find_command
+    )
 
   commands: ->
     if @_commands.length is 0
