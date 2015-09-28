@@ -12,7 +12,8 @@ class Xecute extends Command
 
   constructor: ->
     super
-    @compiler = new Compiler({@scope})
+    isCoffee = @find_file().name?.slice(-6) is 'coffee'
+    @compiler = new Compiler({@scope, isCoffee})
 
   execute: (input, chain) ->
     return @switch_mode(chain) if input[0] == 'mode'
